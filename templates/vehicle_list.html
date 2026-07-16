@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- Heading -->
+
+    <div class="text-center mb-5">
+
+        <h2 class="fw-bold">
+            <i class="bi bi-car-front-fill text-primary"></i>
+            Available Vehicles
+        </h2>
+
+        <p class="text-muted">
+            Browse and choose your preferred vehicle.
+        </p>
+
+    </div>
+
+    <!-- Search -->
+
+    <form method="GET">
+
+        <div class="input-group mb-4 shadow-sm">
+
+            <span class="input-group-text bg-white">
+                <i class="bi bi-search"></i>
+            </span>
+
+            <input
+                type="text"
+                class="form-control"
+                name="q"
+                placeholder="Search by vehicle, brand, model or type..."
+                value="{{ request.GET.q }}">
+
+            <button class="btn btn-primary">
+                <i class="bi bi-search"></i>
+                Search
+            </button>
+
+        </div>
+
+    </form>
+
+    <!-- Vehicle Type Filter -->
+
+    <div class="text-center mb-5">
+
+        <a href="{% url 'vehicle_list' %}" class="btn btn-outline-dark rounded-pill px-4 m-1">
+            All
+        </a>
+
+        <a href="?type=Car" class="btn btn-outline-primary rounded-pill px-4 m-1">
+            Cars
+        </a>
+
+        <a href="?type=Bike" class="btn btn-outline-success rounded-pill px-4 m-1">
+            Bikes
+        </a>
+
+        <a href="?type=Scooter" class="btn btn-outline-warning rounded-pill px-4 m-1">
+            Scooters
+        </a>
+
+    </div>
+
+    <!-- Vehicle Cards -->
+
+    <div class="row g-4">
+
+        {% for vehicle in vehicles %}
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card h-100 border-0 shadow-lg">
+
+                {% if vehicle.image %}
+
+                    <img src="{{ vehicle.image.url }}"
+                         class="card-img-top"
+                         style="height:230px; object-fit:cover;"
+                         alt="{{ vehicle.brand }} {{ vehicle.model }}">
+
+                {% else %}
+
+                    <img src="https://via.placeholder.com/500x300?text=Vehicle"
+                         class="card-img-top"
+                         style="height:230px; object-fit:cover;"
+                         alt="Vehicle">
+
+                {% endif %}
+
+                <div class="card-body d-flex flex-column">
+
+                    <h4 class="fw-bold">
+
+                        {{ vehicle.brand }}
+
+                        {{ vehicle.model }}
+
+                    </h4>
+
+                    <hr>
+
+                    <p>
+
+                        <i class="bi bi-car-front text-primary"></i>
+
+                        <strong>Type :</strong>
+
+                        {{ vehicle.vehicle_type }}
+
+                    </p>
+
+                    <p>
+
+                        <i class="bi bi-currency-rupee text-success"></i>
+
+                        <strong>Price :</strong>
+
+                        ₹{{ vehicle.price_per_day }}/day
+
+                    </p>
+
+                    <p>
+
+                        <i class="bi bi-upc-scan text-secondary"></i>
+
+                        <strong>Registration :</strong>
+
+                        {{ vehicle.registration_number }}
+
+                    </p>
+
+                    <!-- Average Rating -->
+
+                    <p>
+
+                        <i class="bi bi-star-fill text-warning"></i>
+
+                        <strong>Rating :</strong>
+
+                        {% if vehicle.avg_rating %}
+
+                            {{ vehicle.avg_rating|floatformat:1 }}/5
+
+                            <small class="text-muted">
+                                ({{ vehicle.review_count }} Reviews)
+                            </small>
+
+                        {% else %}
+
+                            <span class="text-muted">
+                                No Reviews Yet
+                            </span>
+
+                        {% endif %}
+
+                    </p>
+
+                    <!-- Availability -->
+
+                    <div class="mb-3">
+
+                        {% if vehicle.availability %}
+
+                            <span class="badge bg-success px-3 py-2">
+
+                                <i class="bi bi-check-circle-fill"></i>
+
+                                Available
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger px-3 py-2">
+
+                                <i class="bi bi-x-circle-fill"></i>
+
+                                Not Available
+
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                    <div class="mt-auto">
+
+                        <a href="{% url 'vehicle_detail' vehicle.pk %}"
+                           class="btn btn-primary w-100">
+
+                            <i class="bi bi-eye-fill me-2"></i>
+
+                            View Details
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <div class="alert alert-warning text-center shadow-sm">
+
+                <i class="bi bi-exclamation-circle-fill fs-3"></i>
+
+                <h5 class="mt-2">
+
+                    No vehicles available.
+
+                </h5>
+
+                <p class="mb-0">
+
+                    Please check back later.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

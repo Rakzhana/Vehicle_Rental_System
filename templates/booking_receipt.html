@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-success text-white">
+            <h2>Vehicle Rental Receipt</h2>
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th>Booking ID</th>
+                    <td>{{ booking.id }}</td>
+                </tr>
+
+                <tr>
+                    <th>Customer</th>
+                    <td>{{ booking.customer.username }}</td>
+                </tr>
+
+                <tr>
+                    <th>Vehicle</th>
+                    <td>{{ booking.vehicle.name }}</td>
+                </tr>
+
+                <tr>
+                    <th>Brand</th>
+                    <td>{{ booking.vehicle.brand }}</td>
+                </tr>
+
+                <tr>
+                    <th>Model</th>
+                    <td>{{ booking.vehicle.model }}</td>
+                </tr>
+
+                <tr>
+                    <th>Pickup Date</th>
+                    <td>{{ booking.pickup_date }}</td>
+                </tr>
+
+                <tr>
+                    <th>Return Date</th>
+                    <td>{{ booking.return_date }}</td>
+                </tr>
+
+                <tr>
+                    <th>Total Days</th>
+                    <td>{{ days }}</td>
+                </tr>
+
+                <tr>
+                    <th>Price Per Day</th>
+                    <td>₹{{ booking.vehicle.price_per_day }}</td>
+                </tr>
+
+                <tr>
+                    <th>Total Amount</th>
+                    <td><strong>₹{{ booking.total_amount }}</strong></td>
+                </tr>
+
+                <tr>
+                    <th>Status</th>
+                    <td>{{ booking.status }}</td>
+                </tr>
+
+            </table>
+
+            <div class="text-center mt-4">
+
+                <button onclick="window.print()"
+                        class="btn btn-success">
+                    Print Receipt
+                </button>
+                <a href="{% url 'download_receipt_pdf' booking.pk %}"
+   class="btn btn-danger">
+
+    <i class="bi bi-file-earmark-pdf-fill"></i>
+
+    Download PDF
+
+</a>
+
+                <a href="{% url 'my_bookings' %}"
+                   class="btn btn-secondary">
+                    Back
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

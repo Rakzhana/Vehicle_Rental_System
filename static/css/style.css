@@ -1,0 +1,486 @@
+/* ===========================
+   Google Font
+=========================== */
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f5f7fb;
+    color:#2d3748;
+}
+
+/* ===========================
+   Navbar
+=========================== */
+
+.navbar{
+    background:#ffffff !important;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+.navbar-brand{
+    font-size:1.6rem;
+    font-weight:700;
+    color:#2563eb !important;
+}
+
+.nav-link{
+    color:#374151 !important;
+    font-weight:500;
+    margin-left:8px;
+    transition:.3s;
+}
+
+.nav-link:hover{
+    color:#2563eb !important;
+}
+
+.navbar .btn{
+    border-radius:30px;
+}
+
+/* ===========================
+   Hero Section
+=========================== */
+
+.hero{
+    background:linear-gradient(rgba(30,64,175,.70),
+    rgba(37,99,235,.70)),
+    url("../images/banner.jpg") center/cover;
+    min-height:520px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:white;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:3.5rem;
+    font-weight:700;
+}
+
+.hero p{
+    font-size:1.2rem;
+    margin-top:15px;
+}
+
+/* ===========================
+   Buttons
+=========================== */
+
+.btn-primary{
+
+    background:#2563eb;
+    border:none;
+    border-radius:30px;
+    padding:12px 30px;
+    transition:.3s;
+
+}
+
+.btn-primary:hover{
+
+    background:#1d4ed8;
+    transform:translateY(-2px);
+
+}
+
+.btn-success{
+
+    border-radius:30px;
+
+}
+
+.btn-danger{
+
+    border-radius:30px;
+
+}
+
+/* ===========================
+   Cards
+=========================== */
+
+.card{
+
+    border:none;
+    border-radius:18px;
+    overflow:hidden;
+    transition:.35s;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 18px 35px rgba(0,0,0,.15);
+
+}
+
+.card img{
+
+    height:220px;
+
+    object-fit:cover;
+
+}
+
+/* ===========================
+   Vehicle Price
+=========================== */
+
+.price{
+
+    color:#2563eb;
+
+    font-size:1.4rem;
+
+    font-weight:700;
+
+}
+
+/* ===========================
+   Availability Badge
+=========================== */
+
+.badge{
+
+    font-size:.9rem;
+
+    padding:8px 14px;
+
+}
+
+/* ===========================
+   Tables
+=========================== */
+
+.table{
+
+    background:white;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+}
+
+.table thead{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+.table th{
+
+    padding:16px;
+
+}
+
+.table td{
+
+    vertical-align:middle;
+
+}
+
+/* ===========================
+   Forms
+=========================== */
+
+input,
+select,
+textarea{
+
+    border-radius:10px !important;
+
+    padding:10px;
+
+}
+
+.form-control:focus{
+
+    box-shadow:0 0 8px rgba(37,99,235,.3);
+
+    border-color:#2563eb;
+
+}
+
+/* ===========================
+   Dashboard Cards
+=========================== */
+
+.dashboard-card{
+
+    border-radius:20px;
+
+    color:white;
+
+    padding:30px;
+
+}
+
+.dashboard-card h2{
+
+    font-size:2.2rem;
+
+    font-weight:700;
+
+}
+
+/* ===========================
+   Footer
+=========================== */
+
+footer{
+
+    background:#111827;
+
+    color:white;
+
+}
+
+footer a{
+
+    color:white;
+
+    text-decoration:none;
+
+}
+
+footer a:hover{
+
+    color:#60a5fa;
+
+}
+
+footer i{
+
+    transition:.3s;
+
+}
+
+footer i:hover{
+
+    color:#60a5fa;
+
+    transform:scale(1.2);
+
+}
+
+/* ===========================
+   Images
+=========================== */
+
+img{
+
+    border-radius:12px;
+
+}
+
+/* ===========================
+   Search Box
+=========================== */
+
+.search-box{
+
+    border-radius:40px;
+
+}
+
+/* ===========================
+   Section Titles
+=========================== */
+
+.section-title{
+
+    font-weight:700;
+
+    color:#1e3a8a;
+
+    margin-bottom:30px;
+
+}
+
+/* ===========================
+   Animations
+=========================== */
+
+.fade-up{
+
+    animation:fadeUp .8s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(40px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:768px){
+
+.hero h1{
+
+    font-size:2.3rem;
+
+}
+
+.hero{
+
+    min-height:380px;
+
+}
+
+.card img{
+
+    height:180px;
+
+}
+
+.navbar-brand{
+
+    font-size:1.3rem;
+
+}
+
+}
+/* ---------- Authentication Forms ---------- */
+
+form p{
+
+    margin-bottom:18px;
+
+}
+
+form label{
+
+    font-weight:600;
+
+    margin-bottom:6px;
+
+    display:block;
+
+    color:#374151;
+
+}
+
+form input{
+
+    width:100%;
+
+    padding:12px 15px;
+
+    border:1px solid #ced4da;
+
+    border-radius:10px;
+
+    transition:0.3s;
+
+}
+
+form input:focus{
+
+    border-color:#0d6efd;
+
+    box-shadow:0 0 10px rgba(13,110,253,.20);
+
+    outline:none;
+
+}
+
+.helptext{
+
+    display:block;
+
+    color:#6c757d;
+
+    font-size:13px;
+
+    margin-top:5px;
+
+}
+
+.errorlist{
+
+    color:red;
+
+    list-style:none;
+
+    padding:0;
+
+    margin-bottom:10px;
+
+}
+input{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ced4da;
+}
+
+input:focus{
+    border-color:#0d6efd;
+    box-shadow:0 0 8px rgba(13,110,253,.25);
+    outline:none;
+}
+
+.card{
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.input-group-text{
+    background:#f8f9fa;
+}
+footer a{
+
+    transition:.3s;
+
+}
+
+footer a:hover{
+
+    color:#0d6efd !important;
+
+    padding-left:5px;
+
+}
+
+footer i{
+
+    transition:.3s;
+
+}
+
+footer i:hover{
+
+    transform:scale(1.2);
+
+}

@@ -1,0 +1,321 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row g-5">
+
+        <!-- Vehicle Image -->
+
+        <div class="col-lg-6">
+
+            <div class="card border-0 shadow-lg">
+
+                {% if vehicle.image %}
+
+                <img src="{{ vehicle.image.url }}"
+                     class="card-img-top rounded"
+                     style="height:450px; object-fit:cover;"
+                     alt="{{ vehicle.brand }} {{ vehicle.model }}">
+
+                {% else %}
+
+                <img src="https://via.placeholder.com/700x450?text=Vehicle+Image"
+                     class="card-img-top rounded"
+                     alt="Vehicle">
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <!-- Vehicle Details -->
+
+        <div class="col-lg-6">
+
+            <div class="card border-0 shadow-lg">
+
+                <div class="card-body p-4">
+
+                    <h2 class="fw-bold mb-3">
+
+                        {{ vehicle.brand }} {{ vehicle.model }}
+
+                    </h2>
+
+                    <hr>
+
+                    <table class="table">
+
+                        <tr>
+                            <th width="40%">
+                                <i class="bi bi-car-front-fill text-primary"></i>
+                                Vehicle Name
+                            </th>
+                            <td>{{ vehicle.name }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                <i class="bi bi-building text-primary"></i>
+                                Brand
+                            </th>
+                            <td>{{ vehicle.brand }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                <i class="bi bi-gear-fill text-primary"></i>
+                                Model
+                            </th>
+                            <td>{{ vehicle.model }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                <i class="bi bi-truck text-primary"></i>
+                                Type
+                            </th>
+                            <td>{{ vehicle.vehicle_type }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                <i class="bi bi-upc-scan text-primary"></i>
+                                Registration
+                            </th>
+                            <td>{{ vehicle.registration_number }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                <i class="bi bi-currency-rupee text-primary"></i>
+                                Rental Price
+                            </th>
+                            <td class="fw-bold text-success">
+                                ₹{{ vehicle.price_per_day }} / Day
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                <i class="bi bi-check-circle-fill text-primary"></i>
+                                Availability
+                            </th>
+
+                            <td>
+
+                                {% if vehicle.availability %}
+
+                                    <span class="badge bg-success px-3 py-2">
+                                        Available
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-danger px-3 py-2">
+                                        Not Available
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                    <div class="mt-4">
+
+                        <h5>
+
+                            <i class="bi bi-file-text-fill text-primary"></i>
+
+                            Description
+
+                        </h5>
+
+                        <p class="text-muted">
+
+                            {{ vehicle.description }}
+
+                        </p>
+
+                    </div>
+
+                    <div class="d-grid gap-3 mt-4">
+
+                        {% if vehicle.availability %}
+
+                        <a href="{% url 'book_vehicle' vehicle.pk %}"
+                           class="btn btn-primary btn-lg">
+
+                            <i class="bi bi-calendar-check-fill"></i>
+
+                            Book Now
+
+                        </a>
+
+                        {% else %}
+
+                        <button class="btn btn-secondary btn-lg" disabled>
+
+                            Currently Unavailable
+
+                        </button>
+
+                        {% endif %}
+
+                        <a href="{% url 'vehicle_list' %}"
+                           class="btn btn-outline-dark">
+
+                            <i class="bi bi-arrow-left"></i>
+
+                            Back to Vehicles
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Reviews Section -->
+
+    <div class="mt-5">
+
+        <h3 class="fw-bold mb-4">
+
+            <i class="bi bi-star-fill text-warning"></i>
+
+            Customer Reviews
+
+        </h3>
+
+        {% for review in reviews %}
+
+        <div class="card shadow-sm mb-3">
+
+            <div class="card-body">
+
+                <h5>
+
+                    <i class="bi bi-person-circle text-primary"></i>
+
+                    {{ review.customer.username }}
+
+                </h5>
+
+                <div class="mb-2">
+
+                    {% for i in "12345" %}
+
+                        {% if forloop.counter <= review.rating %}
+
+                            <i class="bi bi-star-fill text-warning"></i>
+
+                        {% else %}
+
+                            <i class="bi bi-star text-secondary"></i>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                </div>
+
+                <p class="text-muted">
+
+                    {{ review.review }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="alert alert-info">
+
+            <i class="bi bi-info-circle-fill"></i>
+
+            No reviews yet.
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+<hr class="my-5">
+
+<h3 class="mb-4">
+
+    <i class="bi bi-star-fill text-warning"></i>
+
+    Customer Reviews
+
+</h3>
+
+{% if avg_rating %}
+
+<div class="alert alert-warning">
+
+    <h5>
+
+        ⭐ Average Rating :
+        {{ avg_rating|floatformat:1 }}/5
+
+    </h5>
+
+</div>
+
+{% endif %}
+
+{% for review in reviews %}
+
+<div class="card mb-3 shadow-sm">
+
+    <div class="card-body">
+
+        <h5>
+
+            {{ review.customer.username }}
+
+        </h5>
+
+        <p>
+
+            ⭐ {{ review.rating }}/5
+
+        </p>
+
+        <p>
+
+            {{ review.review }}
+
+        </p>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<div class="alert alert-secondary">
+
+    No reviews yet.
+
+</div>
+
+{% endfor %}
+{% endblock %}

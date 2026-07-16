@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- Heading -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold">
+                <i class="bi bi-calendar-check-fill text-primary"></i>
+                My Bookings
+            </h2>
+
+            <p class="text-muted mb-0">
+                View and manage all your vehicle bookings.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Booking Table -->
+
+    <div class="card shadow-lg border-0">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-primary">
+
+                        <tr>
+
+                            <th>Vehicle</th>
+                            <th>Pickup Date</th>
+                            <th>Return Date</th>
+                            <th>Total Amount</th>
+                            <th>Status</th>
+                            <th>Receipt</th>
+                            <th>Review</th>
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    {% for booking in bookings %}
+
+                    <tr>
+
+                        <td>
+
+                            <strong>
+
+                                {{ booking.vehicle.brand }}
+                                {{ booking.vehicle.model }}
+
+                            </strong>
+
+                            <br>
+
+                            <small class="text-muted">
+
+                                {{ booking.vehicle.vehicle_type }}
+
+                            </small>
+
+                        </td>
+
+                        <td>
+
+                            <i class="bi bi-calendar-event text-primary"></i>
+
+                            {{ booking.pickup_date }}
+
+                        </td>
+
+                        <td>
+
+                            <i class="bi bi-calendar-event text-primary"></i>
+
+                            {{ booking.return_date }}
+
+                        </td>
+
+                        <td>
+
+                            <span class="fw-bold text-success">
+
+                                ₹{{ booking.total_amount }}
+
+                            </span>
+
+                        </td>
+
+                        <!-- Status -->
+
+                        <td>
+
+                            {% if booking.status == "Pending" %}
+
+                                <span class="badge bg-warning text-dark px-3 py-2">
+                                    Pending
+                                </span>
+
+                            {% elif booking.status == "Approved" %}
+
+                                <span class="badge bg-success px-3 py-2">
+                                    Approved
+                                </span>
+
+                            {% elif booking.status == "Completed" %}
+
+                                <span class="badge bg-primary px-3 py-2">
+                                    Completed
+                                </span>
+
+                            {% elif booking.status == "Cancelled" %}
+
+                                <span class="badge bg-danger px-3 py-2">
+                                    Cancelled
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-secondary px-3 py-2">
+                                    {{ booking.status }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <!-- Receipt -->
+
+                        <td>
+
+                            <a href="{% url 'booking_receipt' booking.pk %}"
+                               class="btn btn-outline-primary btn-sm">
+
+                                <i class="bi bi-receipt"></i>
+
+                                Receipt
+
+                            </a>
+
+                        </td>
+
+                        <!-- Review -->
+
+                        <td>
+
+                            {% if booking.status == "Completed" %}
+
+                                {% if booking.rating %}
+
+                                    <span class="badge bg-success">
+
+                                        ⭐ {{ booking.rating }}/5
+
+                                    </span>
+
+                                    {% if booking.review %}
+
+                                        <br>
+
+                                        <small class="text-muted">
+
+                                            "{{ booking.review }}"
+
+                                        </small>
+
+                                    {% endif %}
+
+                                {% else %}
+
+                                    <a href="{% url 'review_booking' booking.pk %}"
+                                       class="btn btn-warning btn-sm">
+
+                                        <i class="bi bi-star-fill"></i>
+
+                                        Review
+
+                                    </a>
+
+                                {% endif %}
+
+                            {% else %}
+
+                                <span class="text-muted">
+
+                                    -
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <!-- Action -->
+
+                        <td>
+
+                            {% if booking.status == "Pending" or booking.status == "Approved" %}
+
+                                <a href="{% url 'cancel_booking' booking.pk %}"
+                                   class="btn btn-outline-danger btn-sm"
+                                   onclick="return confirm('Are you sure you want to cancel this booking?');">
+
+                                    <i class="bi bi-x-circle"></i>
+
+                                    Cancel
+
+                                </a>
+
+                            {% elif booking.status == "Cancelled" %}
+
+                                <span class="text-danger fw-semibold">
+
+                                    Cancelled
+
+                                </span>
+
+                            {% elif booking.status == "Completed" %}
+
+                                <span class="text-success fw-bold">
+
+                                    Completed
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="text-muted">
+
+                                    -
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="8" class="text-center py-5">
+
+                            <i class="bi bi-calendar-x display-4 text-secondary"></i>
+
+                            <h4 class="mt-3">
+
+                                No Bookings Found
+
+                            </h4>
+
+                            <p class="text-muted">
+
+                                You haven't booked any vehicles yet.
+
+                            </p>
+
+                            <a href="{% url 'vehicle_list' %}"
+                               class="btn btn-primary">
+
+                                <i class="bi bi-car-front-fill"></i>
+
+                                Browse Vehicles
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
